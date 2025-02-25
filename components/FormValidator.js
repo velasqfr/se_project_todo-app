@@ -9,7 +9,6 @@ class FormValidator {
     this._errorClass = settings.errorClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._inactiveButtonClass = settings.inactiveButtonClass;
-    this._submitButton = this._formEl.querySelector(this._submitButtonSelector); //added for the enable and disabled button
   }
 
   _showInputError = (inputElement) => {
@@ -69,7 +68,7 @@ class FormValidator {
       this._formEl.querySelectorAll(this._inputSelector)
     );
     this._buttonElement = this._formEl.querySelector(
-      this._submitButtonSelector
+      this._submitButtonSelector // added for the enable and disabled submit button
     );
 
     this._toggleButtonState();
@@ -97,7 +96,6 @@ class FormValidator {
 
   enableValidation() {
     this._setEventListeners();
-    this._toggleButtonState();
 
     this._formEl.addEventListener("submit", (evt) => {
       evt.preventDefault(); // Prevent default form submission

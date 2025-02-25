@@ -11,7 +11,7 @@ import FormValidator from "../components/FormValidator.js";
 
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopup = document.querySelector("#add-todo-popup");
-const addTodoForm = addTodoPopup.querySelector(".popup__form");
+const addTodoForm = addTodoPopup.querySelector(".popup__form"); //or "const addTodoForm = document.forms["add-todo-form"]; per Code Reviewer
 const addTodoCloseBtn = addTodoPopup.querySelector(".popup__close");
 //const todoTemplate = document.querySelector("#todo-template"); --> REMOVED
 const todosList = document.querySelector(".todos__list");
@@ -25,7 +25,7 @@ const closeModal = (modal) => {
 };
 
 // The logic in this function should all be handled in the Todo class.
-const generateTodo = (data) => {
+const renderTodo = (data) => {
   // TASK 3: CREATING THE Todo CLASS:
   // Instantiate Todo class, using `new Todo()`
   //typically when you instantiate a class, you will be assigning that class to a varaible ("todo")
@@ -35,8 +35,7 @@ const generateTodo = (data) => {
   // NEXT STEP: Use `getView()` to obtain the finished todo item element & return the todo item element:
   //OUTSIDE the class: you call the method like this - "todo.getView()" (name of the instance(DOT)method name.
   const todoElement = todo.getView();
-
-  return todoElement;
+  todosList.append(todoElement);
 
   //TO BE REMOVED:
   /* 
@@ -85,8 +84,8 @@ addTodoForm.addEventListener("submit", (evt) => {
   //this "uidv4()" will give a new attibute added a different id # (the for "" will match the id "")
   const id = uuidv4(); //add id below
   const values = { name, date, id };
-  const todo = generateTodo(values);
-  todosList.append(todo);
+
+  renderTodo(values); //New Function created
 
   closeModal(addTodoPopup);
   /////////////////////////////STEP 6: Resetting the form and form controls after submission///////////////////////////
@@ -94,11 +93,7 @@ addTodoForm.addEventListener("submit", (evt) => {
   newTodoValidator.resetValidation(); //Resets the validation after submission
 });
 
-initialTodos.forEach((item) => {
-  const todo = generateTodo(item);
-  todosList.append(todo);
-});
-
+initialTodos.forEach(renderTodo);
 ///////////////////////////////////////STEP 5: Instantiate//////////////////////////////////////
 // This is what happens when you call "new" and then the class (it calls the constructor function and returns an instance of the class)
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);

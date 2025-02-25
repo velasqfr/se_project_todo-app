@@ -50,7 +50,6 @@ class Todo {
     //this will bring back the data and specifically, the names of the todo data items:
     //the name of the todo item is being passed as data, which we are then assign to "this._data" so data has a name property:
     this._todoNameEl.textContent = this._data.name;
-    this._todoDate.textContent = this._data.date;
 
     //To call the functions above on "_generateCheckBoxEl()"":
     //Outside the class you reference it the name of the instance ("toDo")
