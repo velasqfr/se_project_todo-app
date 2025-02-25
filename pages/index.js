@@ -81,13 +81,17 @@ addTodoForm.addEventListener("submit", (evt) => {
   const date = new Date(dateInput);
   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 
-  ///////////////////////////////////////////////STEP 4://////////////////////////////////////////////////
+  ///////////////////////////////////////////////STEP 4:////////////////////////////////////////////////////////////////
   //this "uidv4()" will give a new attibute added a different id # (the for "" will match the id "")
   const id = uuidv4(); //add id below
   const values = { name, date, id };
   const todo = generateTodo(values);
   todosList.append(todo);
+
   closeModal(addTodoPopup);
+  /////////////////////////////STEP 6: Resetting the form and form controls after submission///////////////////////////
+  addTodoForm.reset(); //Clears Form Inputs
+  newTodoValidator.resetValidation(); //Resets the validation after submission
 });
 
 initialTodos.forEach((item) => {
