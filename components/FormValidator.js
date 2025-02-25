@@ -59,7 +59,7 @@ class FormValidator {
 
   _enableButton() {
     if (this._submitButton) {
-      this._submitButton.disabled = true;
+      this._submitButton.disabled = false;
       this._submitButton.classList.remove(this._inactiveButtonClass);
     }
   }
@@ -89,17 +89,19 @@ class FormValidator {
 
   resetValidation() {
     this._inputList.forEach((inputElement) => {
-      inputElement.value = "";
-      this._hideInputError(inputElement);
+      this._hideInputError(inputElement); //Hide errror messages
+      inputElement.value = ""; //Clear input values
     });
-    this._toggleButtonState();
+    this._disableButton(); ///disable the submit button
   }
 
   enableValidation() {
-    this._formEl.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-    });
     this._setEventListeners();
+    this._formEl.addEventListener("submit", (evt) => {
+      evt.preventDefault(); // Prevent default form submission
+      this.resetValidation(); // Reset resetValidation after submission
+    });
+
     this._toggleButtonState();
   }
 }
