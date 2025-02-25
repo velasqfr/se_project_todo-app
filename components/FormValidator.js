@@ -4,11 +4,11 @@ class FormValidator {
   constructor(settings, formEl) {
     //No need to use queryselector because it already has been used in Index.JS
     this._formEl = formEl;
-    this._inputSelector = settings._inputSelector;
-    this._submitButtonSelector = settings._submitButtonSelector;
-    this.__errorClass = settings.__errorClass;
-    this._inputErrorClass = settings._inputErrorClass;
-    this._inactiveButtonClass = settings._inactiveButtonClass;
+    this._inputSelector = settings.inputSelector;
+    this._submitButtonSelector = settings.submitButtonSelector;
+    this._errorClass = settings.errorClass;
+    this._inputErrorClass = settings.inputErrorClass;
+    this._inactiveButtonClass = settings.inactiveButtonClass;
     this._submitButton = this._formEl.querySelector(this._submitButtonSelector); //added for the enable and disabled button
   }
 
@@ -97,12 +97,11 @@ class FormValidator {
 
   enableValidation() {
     this._setEventListeners();
+    this._toggleButtonState();
+
     this._formEl.addEventListener("submit", (evt) => {
       evt.preventDefault(); // Prevent default form submission
-      this.resetValidation(); // Reset resetValidation after submission
     });
-
-    this._toggleButtonState();
   }
 }
 
