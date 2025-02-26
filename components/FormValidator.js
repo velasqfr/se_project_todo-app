@@ -29,7 +29,7 @@ class FormValidator {
 
   _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {
-      this._showInputError(inputElement, inputElement.validationMessage);
+      this._showInputError(inputElement);
     } else {
       this._hideInputError(inputElement);
     }
@@ -67,7 +67,7 @@ class FormValidator {
     this._inputList = Array.from(
       this._formEl.querySelectorAll(this._inputSelector)
     );
-    this._buttonElement = this._formEl.querySelector(
+    this._this._submitButton = this._formEl.querySelector(
       this._submitButtonSelector // added for the enable and disabled submit button
     );
 
