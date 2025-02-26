@@ -67,7 +67,7 @@ class FormValidator {
     this._inputList = Array.from(
       this._formEl.querySelectorAll(this._inputSelector)
     );
-    this._this._submitButton = this._formEl.querySelector(
+    this._submitButton = this._formEl.querySelector(
       this._submitButtonSelector // added for the enable and disabled submit button
     );
 
