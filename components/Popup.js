@@ -4,12 +4,14 @@ class Popup {
     this._popupCloseBtn = this._popupElement.querySelector(".popup__close"); //we currently don't have access to the closeBtn but DO have access to popupElement, where the closBtn is inside of
   }
 
-  _handleEscapeClose(evt) {
+  //Allows the form to close properly with the "esc" key
+  //"arrow method => The advantage of such arrow methods is that they don't lose this, and you can pass them as event listeners"
+  _handleEscapeClose = (evt) => {
     if (evt.key == "Escape") {
       //TODO: ccall the close method
       this.close();
     }
-  }
+  };
 
   open() {
     this._popupElement.classList.add("popup_visible");
@@ -20,7 +22,7 @@ class Popup {
   close() {
     this._popupElement.classList.remove("popup_visible");
     //TODO: remove the escape listener
-    document.removeEventListener("keydown", this._handleEscapeClose);
+    document.removeEventListener("keyup", this._handleEscapeClose);
   }
 
   //Creating the method for "addTodoPopup.setEventListeners();":

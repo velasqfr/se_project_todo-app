@@ -38,6 +38,18 @@ function handleDelete(completed) {
   todoCounter.updateTotal(false); //this ensures the total is decremented
 }
 
+//Created a reusable generateTodo function:
+function generateTodo(item) {
+  const todo = new Todo(item, "#todo-template", handleCheck, handleDelete);
+  return todo.getView();
+}
+
+//Function to render todos
+const renderTodo = (data) => {
+  const todoElement = generateTodo(data);
+  section.addItem(todoElement);
+};
+
 //Let's create our popup instance:
 const addTodoPopup = new PopupWithForm({
   popupSelector: "#add-todo-popup",
@@ -46,7 +58,6 @@ const addTodoPopup = new PopupWithForm({
     initialTodos.push(newTodo);
 
     renderTodo(newTodo);
-
     todoCounter.updateTotal(true); //Increases the total count of increments when adding a form box
 
     newTodoValidator.resetValidation();
@@ -56,24 +67,6 @@ const addTodoPopup = new PopupWithForm({
 // this clode will set the event listeners: void "addTodoCloseBtn.addEventListener("click", () => { addTodoPopup.close(); });" &
 // the submit listener for the form & replace the "addTodoForm.addEventListener("submit", (evt)....""
 addTodoPopup.setEventListeners();
-
-// The logic in this function should all be handled in the Todo class.
-const renderTodo = (data) => {
-  // TASK 3: CREATING THE Todo CLASS:
-  // Instantiate Todo class, using `new Todo()`
-  //typically when you instantiate a class, you will be assigning that class to a varaible ("todo")
-  //let's then pass it the data ("data") and the selector, chosen from hard coded string (for simplicity), "#todo-template"
-  const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
-
-  // NEXT STEP: Use `getView()` to obtain the finished todo item element & return the todo item element:
-  //OUTSIDE the class: you call the method like this - "todo.getView()" (name of the instance(DOT)method name.
-  const todoElement = todo.getView();
-  todosList.append(todoElement);
-};
-
-addTodoButton.addEventListener("click", () => {
-  addTodoPopup.open(); //this is how you call the method of the class instance (in this case "addToDoPopup" )
-});
 
 ///////////////////////////////////////STEP 5: Instantiate//////////////////////////////////////
 // This is what happens when you call "new" and then the class (it calls the constructor function and returns an instance of the class)
@@ -92,11 +85,16 @@ newTodoValidator.enableValidation();
 const section = new Section({
   items: initialTodos, //pass initial todos
   renderer: renderTodo, //use the renderTodo function to render each todo item
-  containerSelector: "todos__list", //The container where todo items will be added
+  containerSelector: ".todos__list", //The container where todo items will be added
 });
 
 //call Section instance's renderItems method
 section.renderItems();
+
+// Add event listener to open the add todo popup
+addTodoButton.addEventListener("click", () => {
+  addTodoPopup.open(); //this is how you call the method of the class instance (in this case "addToDoPopup" )
+});
 
 //
 //
@@ -123,6 +121,20 @@ section.renderItems();
 /*const closeModal = (modal) => {
   modal.classList.remove("popup_visible");
 };*/
+
+// // The logic in this function should all be handled in the Todo class.
+// const renderTodo = (data) => {
+//   // TASK 3: CREATING THE Todo CLASS:
+//   // Instantiate Todo class, using `new Todo()`
+//   //typically when you instantiate a class, you will be assigning that class to a varaible ("todo")
+//   //let's then pass it the data ("data") and the selector, chosen from hard coded string (for simplicity), "#todo-template"
+//   // const todo = new Todo(data, "#todo-template", handleCheck, handleDelete);
+
+//   // NEXT STEP: Use `getView()` to obtain the finished todo item element & return the todo item element:
+//   //OUTSIDE the class: you call the method like this - "todo.getView()" (name of the instance(DOT)method name.
+//   const todoElement = todo.getView();
+//   todosList.append(todoElement);
+// };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////CODE THAT HAS BEEN MOVED AROUND OR DELETED/////////////////////////////////////////////
