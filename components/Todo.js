@@ -1,11 +1,13 @@
 ////////////////////////////TASK 3: CREATING THE Todo CLASS://///////////////////////////////////////////////////
 // Instantiate Todo class, using `new Todo()`
 class Todo {
-  constructor(data, selector) {
+  constructor(data, selector, handleCheck, handleDelete) {
     //for every arguement, you assign it a value on the "this" object, where you will then be able to acess anywhere you need it
     this._data = data;
     //we don't need the Selector, but what we do need to is find the template:
     this._templateElement = document.querySelector(selector);
+    this._handleCheck = handleCheck;
+    this._handleDelete = handleDelete;
   }
 
   ///////////////////////////TASK 3: SETTING THE PRIVATE EVENTLISTENERS://///////////////////////////////////////
@@ -13,12 +15,14 @@ class Todo {
     //set 'change' listeners on checkbox el
     this._todoCheckboxEl.addEventListener("change", () => {
       //when clicked, change completion from true to false, or vice versa
-      this._data.completed = !this._data.completed;
+      this._data.completed = !this._data.completed; //toggle completed status
+      this._handleCheck(this._data.completed); //Pass the new completed status
     });
 
     //TODO: Set the delete button handler:
     this._todoDeleteBtn.addEventListener("click", () => {
       this._todoElement.remove();
+      this._handleDelete(this._data.completed);
     });
   }
 
